@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 import { PageIntro } from "@/components/layout/page-intro";
+import { DriveSyncPanel } from "@/components/sync/drive-sync-panel";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -128,6 +129,8 @@ export function DataPage() {
         <div className="surface-soft px-5 py-4 text-sm text-slate-600">{statusMessage}</div>
       ) : null}
 
+      <DriveSyncPanel />
+
       <section className="grid gap-4 xl:grid-cols-[1fr_1fr]">
         {(Object.keys(formatDescriptions) as ExportFormat[]).map((format) => (
           <Card key={format}>
@@ -167,7 +170,7 @@ export function DataPage() {
             </DialogDescription>
           </DialogHeader>
           {pendingBackup ? (
-            <div className="space-y-3 rounded-[1.5rem] bg-[color:var(--surface-muted)] p-4 text-sm text-slate-600">
+            <div className="space-y-3 rounded-lg bg-[color:var(--surface-muted)] p-4 text-sm text-slate-600">
               <p>
                 Exported at <strong>{pendingBackup.exportedAt}</strong>
               </p>

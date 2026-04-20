@@ -59,14 +59,39 @@ npm run dev
 - Enables server-side AI reflections.
 - If missing, Elfie keeps all non-AI features fully usable and shows a clean unavailable state instead of breaking.
 
-`OPENAI_MODEL`
+`OPENAI_MODEL_LIGHT`
 - Optional.
 - Defaults to `gpt-5.4-mini`.
+- Used for brief reflection and tiny next-move actions.
+
+`OPENAI_MODEL_PATTERN`
+- Optional.
+- Defaults to `OPENAI_MODEL_LIGHT`.
+- Used for pattern naming.
+
+`OPENAI_MODEL_DEEP`
+- Optional.
+- Defaults to `gpt-5.4`.
+- Used for deeper descriptive analysis.
+
+`AUTH_SECRET` / `NEXTAUTH_SECRET`
+- Required for Google sign-in.
+- Use a long random value and keep it server-only.
+
+`AUTH_URL` / `NEXTAUTH_URL`
+- Required for production Google sign-in callback URLs.
+- Use your deployed origin, for example `https://example.com`.
+
+`GOOGLE_CLIENT_ID`
+`GOOGLE_CLIENT_SECRET`
+- Required for optional Google sign-in and Drive sync.
+- The Google OAuth client must allow the app callback URL and Drive app-data scope.
 
 ## How local-first storage works
 
 - Logs are stored in IndexedDB through Dexie.
 - Settings are stored locally in the same database.
+- Optional Google Drive sync stores a versioned Elfie backup in the account's hidden Drive app data folder.
 - Each log saves both:
   - structured JSON
   - the canonical string line

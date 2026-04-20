@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffdfd;
-  --foreground: #1f1720;
+  --background: #fcfbf8;
+  --foreground: #1d1b18;
   --surface: #ffffff;
-  --surface-muted: #fbf7ff;
-  --surface-soft: #f6f0f9;
-  --border: #ebe1ef;
-  --border-strong: #dccce5;
-  --accent: #b999cb;
-  --accent-soft: #efe5f6;
-  --accent-secondary: #f6dce9;
-  --accent-strong: #8f6aa8;
-  --accent-ink: #5f476d;
-  --shadow-lift: 0 24px 60px rgba(232, 222, 239, 0.52);
-  --shadow-soft: 0 14px 34px rgba(229, 216, 238, 0.32);
+  --surface-muted: #f5f3ee;
+  --surface-soft: #efeee7;
+  --border: #dedbd1;
+  --border-strong: #c8c4b8;
+  --accent: #a9b59c;
+  --accent-soft: #edf2e8;
+  --accent-secondary: #eadde4;
+  --accent-strong: #6f8064;
+  --accent-ink: #44533d;
+  --shadow-lift: 0 12px 28px rgba(50, 47, 40, 0.08);
+  --shadow-soft: 0 8px 20px rgba(50, 47, 40, 0.06);
 }
 
 :root[data-accent="soft-pink"] {
-  --accent: #e1a8c7;
-  --accent-soft: #fae8f1;
-  --accent-secondary: #f6dce7;
-  --accent-strong: #c67aa4;
-  --accent-ink: #8a4d6d;
+  --accent: #d5a0b6;
+  --accent-soft: #f6e9ee;
+  --accent-secondary: #edf2e8;
+  --accent-strong: #a15f7a;
+  --accent-ink: #71465a;
 }
 
 @theme inline {
@@ -44,10 +44,7 @@
 }
 
 html {
-  background:
-    radial-gradient(circle at top left, rgba(244, 233, 246, 0.65), transparent 28%),
-    radial-gradient(circle at top right, rgba(251, 230, 240, 0.48), transparent 24%),
-    var(--background);
+  background: var(--background);
   color: var(--foreground);
 }
 
@@ -93,24 +90,21 @@ h4 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--shadow-lift);
-  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 1.35rem;
 }
 
 .page-eyebrow {
   color: var(--accent-ink);
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .page-title {
   font-size: clamp(2.2rem, 5vw, 3.4rem);
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -123,8 +117,8 @@ h4 {
 
 .surface-soft {
   border: 1px solid var(--border);
-  border-radius: 1.75rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 246, 252, 0.95));
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow-soft);
 }
 

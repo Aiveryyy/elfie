@@ -61,13 +61,13 @@ export function PatternsPage() {
               type="date"
               value={startDate}
               onChange={(event) => setStartDate(event.target.value)}
-              className="h-11 rounded-full border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
+              className="h-11 rounded-lg border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
             />
             <input
               type="date"
               value={endDate}
               onChange={(event) => setEndDate(event.target.value)}
-              className="h-11 rounded-full border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
+              className="h-11 rounded-lg border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
             />
           </div>
         }
@@ -146,7 +146,7 @@ export function PatternsPage() {
             <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {summary.recentFrequencies.map((frequency) => (
                 <div key={`${frequency.kind}-${frequency.label}`} className="surface-soft p-4">
-                  <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                  <p className="text-xs uppercase tracking-normal text-slate-400">
                     {frequency.kind.replace("-", " ")}
                   </p>
                   <p className="mt-3 font-medium text-slate-900">{frequency.label}</p>

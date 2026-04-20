@@ -92,7 +92,7 @@ export function HistoryPage() {
                 setVisibleCount(40);
                 setStartDate(event.target.value);
               }}
-              className="h-11 rounded-full border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
+              className="h-11 rounded-lg border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
             />
             <input
               type="date"
@@ -101,7 +101,7 @@ export function HistoryPage() {
                 setVisibleCount(40);
                 setEndDate(event.target.value);
               }}
-              className="h-11 rounded-full border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
+              className="h-11 rounded-lg border border-[color:var(--border-strong)] bg-white px-4 text-sm text-slate-700 outline-none"
             />
             <Popover>
               <PopoverTrigger asChild>
@@ -113,7 +113,7 @@ export function HistoryPage() {
               <PopoverContent className="w-[360px] space-y-5">
                 {(Object.keys(filterFieldLabels) as FilterField[]).map((field) => (
                   <div key={field} className="space-y-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-normal text-slate-400">
                       {filterFieldLabels[field]}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -122,7 +122,7 @@ export function HistoryPage() {
                           key={`${field}-${value}`}
                           type="button"
                           onClick={() => toggleFilter(field, value)}
-                          className={`rounded-full px-3 py-2 text-xs font-medium transition ${
+                          className={`rounded-lg px-3 py-2 text-xs font-medium transition ${
                             selectedFilters[field] === value
                               ? "bg-[color:var(--accent-soft)] text-slate-900"
                               : "bg-[color:var(--surface-muted)] text-slate-500 hover:text-slate-900"
@@ -193,31 +193,31 @@ export function HistoryPage() {
                     <div className="hairline" />
                     <div className="grid gap-4 p-4 md:grid-cols-3">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Energy
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{log.energyRaw}</p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Mental texture
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{log.mentalTexture}</p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Attention mode
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{log.attentionMode}</p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Emotional tone
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{log.emotionalTone}</p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Dominant thought vector
                         </p>
                         <p className="mt-2 text-sm text-slate-700">
@@ -225,7 +225,7 @@ export function HistoryPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           Body signal
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{log.bodySignal}</p>

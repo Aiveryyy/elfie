@@ -71,7 +71,7 @@ function OptionGrid({
           key={option}
           type="button"
           onClick={() => onSelect(option)}
-          className="rounded-[1.5rem] border border-[color:var(--border)] bg-white px-4 py-4 text-left text-sm font-medium text-slate-700 transition hover:-translate-y-0.5 hover:border-[color:var(--accent)] hover:bg-[color:var(--surface-muted)] hover:text-slate-900"
+          className="rounded-lg border border-[color:var(--border)] bg-white px-4 py-4 text-left text-sm font-medium text-slate-700 transition hover:-translate-y-0.5 hover:border-[color:var(--accent)] hover:bg-[color:var(--surface-muted)] hover:text-slate-900"
         >
           {option}
         </button>
@@ -217,7 +217,7 @@ export function LogPage() {
                 ["Body", lastSavedLog.bodySignal],
               ].map(([label, value]) => (
                 <div key={label} className="surface-soft p-4">
-                  <p className="text-xs uppercase tracking-[0.18em] text-slate-400">{label}</p>
+                  <p className="text-xs uppercase tracking-normal text-slate-400">{label}</p>
                   <p className="mt-2 text-sm text-slate-700">{value}</p>
                 </div>
               ))}
@@ -416,7 +416,7 @@ export function LogPage() {
                       ["Body", draft.bodySignal ?? "none"],
                     ].map(([label, value]) => (
                       <div key={label} className="surface-soft p-4">
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs uppercase tracking-normal text-slate-400">
                           {label}
                         </p>
                         <p className="mt-2 text-sm text-slate-700">{value}</p>
@@ -462,4 +462,3 @@ export function LogPage() {
     </div>
   );
 }
-

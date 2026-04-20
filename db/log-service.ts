@@ -16,11 +16,13 @@ import {
 } from "@/features/logging/schemas";
 import {
   defaultSettings,
+  defaultSyncMeta,
   SETTINGS_RECORD_ID,
   type ElvyxBackupV1,
   type ElvyxLog,
   type ElvyxSettings,
   type StoredElvyxLog,
+  type SyncMeta,
 } from "@/types/elvyx";
 
 export async function getSettings() {
@@ -46,10 +48,32 @@ export async function saveSettings(
 }
 
 export async function clearAllLocalData() {
-  await db.transaction("rw", db.logs, db.settings, async () => {
+  await db.transaction("rw", db.logs, db.settings, db.syncMeta, async () => {
     await db.logs.clear();
     await db.settings.clear();
+    await db.syncMeta.clear();
   });
+}
+
+export async function getSyncMeta() {
+  const stored = await db.syncMeta.get(defaultSyncMeta.id);
+
+  return stored ?? defaultSyncMeta;
+}
+
+export async function saveSyncMeta(
+  partialSyncMeta: Partial<Omit<SyncMeta, "id">>,
+) {
+  const current = await getSyncMeta();
+  const nextSyncMeta = {
+    ...current,
+    ...partialSyncMeta,
+    id: defaultSyncMeta.id,
+  };
+
+  await db.syncMeta.put(nextSyncMeta);
+
+  return nextSyncMeta;
 }
 
 function toStoredLog(log: ElvyxLog): StoredElvyxLog {
@@ -154,13 +178,20 @@ export function createBackupDocument(input: {
   });
 }
 
-export async function replaceAllData(backup: ElvyxBackupV1) {
+export async function replaceAllData(
+  backup: ElvyxBackupV1,
+  options?: {
+    preserveSettingsUpdatedAt?: boolean;
+  },
+) {
   const parsed = backupSchema.parse(backup);
   const settings = coerceSettings({
     ...defaultSettings,
     ...parsed.settings,
     id: SETTINGS_RECORD_ID,
-    updatedAt: new Date().toISOString(),
+    updatedAt: options?.preserveSettingsUpdatedAt
+      ? parsed.settings.updatedAt
+      : new Date().toISOString(),
   });
   const logs = parsed.logs.map((log) => toStoredLog(log));
 

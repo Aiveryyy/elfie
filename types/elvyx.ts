@@ -13,11 +13,20 @@ export const insightModes = [
   "reflect",
   "pattern",
   "tiny-next-move",
+  "deep-analysis",
 ] as const;
 
 export type AccentTheme = (typeof accentThemes)[number];
 export type ExportFormat = (typeof exportFormats)[number];
 export type InsightMode = (typeof insightModes)[number];
+export type AiModelTier = "light" | "pattern" | "deep";
+export type SyncStatus =
+  | "idle"
+  | "syncing"
+  | "synced"
+  | "signed-out"
+  | "conflict"
+  | "error";
 
 export interface ElvyxLog {
   id: string;
@@ -51,6 +60,17 @@ export interface ElvyxSettings {
   updatedAt: string;
 }
 
+export interface SyncMeta {
+  id: "drive-sync";
+  driveFileId?: string | null;
+  lastRemoteModifiedTime?: string | null;
+  lastSyncHash?: string | null;
+  lastSyncedAt?: string | null;
+  lastDeviceId?: string | null;
+  syncStatus: SyncStatus;
+  statusMessage?: string | null;
+}
+
 export interface ElvyxBackupV1 {
   app: "elfie";
   version: typeof ELVYX_BACKUP_VERSION;
@@ -59,10 +79,19 @@ export interface ElvyxBackupV1 {
   logs: ElvyxLog[];
 }
 
+export interface ElfieSyncDocumentV1 {
+  syncVersion: 1;
+  updatedAt: string;
+  deviceId: string;
+  backupHash: string;
+  backup: ElvyxBackupV1;
+}
+
 export interface AiInsightRequest {
   mode: InsightMode;
   logs: ElvyxLog[];
   localeDate: string;
+  patternSummaries?: string[];
 }
 
 export type AiInsightUnavailableReason =
@@ -75,6 +104,8 @@ export interface AiInsightSuccessResponse {
   mode: InsightMode;
   title: string;
   body: string;
+  bullets?: string[];
+  modelTier?: AiModelTier;
   tone: "calm";
   caution?: string | null;
 }
@@ -95,4 +126,15 @@ export const defaultSettings: ElvyxSettings = {
   defaultExportFormat: "backup",
   aiEnabled: false,
   updatedAt: new Date(0).toISOString(),
+};
+
+export const defaultSyncMeta: SyncMeta = {
+  id: "drive-sync",
+  driveFileId: null,
+  lastRemoteModifiedTime: null,
+  lastSyncHash: null,
+  lastSyncedAt: null,
+  lastDeviceId: null,
+  syncStatus: "signed-out",
+  statusMessage: null,
 };

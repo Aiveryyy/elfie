@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
 import { aiInsightRequestSchema } from "@/features/logging/schemas";
-import { buildAiPrompt, aiInsightTextFormat } from "@/lib/ai";
+import { buildAiPrompt, aiInsightTextFormat, getAiModelForMode } from "@/lib/ai";
 import type { AiInsightResponse } from "@/types/elvyx";
 
 export async function POST(request: Request) {
@@ -43,9 +43,10 @@ export async function POST(request: Request) {
     const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
+    const selectedModel = getAiModelForMode(parsed.data.mode);
 
     const response = await client.responses.parse({
-      model: process.env.OPENAI_MODEL ?? "gpt-5.4-mini",
+      model: selectedModel.model,
       input: buildAiPrompt(parsed.data),
       text: {
         format: aiInsightTextFormat,
@@ -69,8 +70,10 @@ export async function POST(request: Request) {
       mode: parsed.data.mode,
       title: output.title,
       body: output.body,
+      bullets: output.bullets ?? undefined,
+      modelTier: selectedModel.tier,
       tone: "calm",
-      caution: output.caution ?? null,
+      caution: output.caution,
     });
   } catch {
     return NextResponse.json<AiInsightResponse>(
