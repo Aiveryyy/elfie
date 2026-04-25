@@ -63,6 +63,26 @@ npm run dev
 - Optional.
 - Defaults to `gpt-5.4-mini`.
 
+`NEXTAUTH_URL`
+- Required when OAuth login is enabled.
+- Use the app origin, for example `http://localhost:3000` locally.
+
+`NEXTAUTH_SECRET`
+- Required when OAuth login is enabled.
+- Used by NextAuth to sign and encrypt session tokens.
+
+`GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`
+- Optional.
+- Enables the Google login button.
+
+`TWITTER_CLIENT_ID` / `TWITTER_CLIENT_SECRET`
+- Optional.
+- Enables the Twitter / X login button.
+
+`GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET`
+- Optional.
+- Enables the GitHub login button.
+
 ## How local-first storage works
 
 - Logs are stored in IndexedDB through Dexie.

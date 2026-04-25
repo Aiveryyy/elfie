@@ -7,6 +7,7 @@ import {
   Clock3,
   Database,
   Home,
+  LogIn,
   Settings2,
   Sparkles,
   SquarePen,
@@ -21,6 +22,7 @@ const navigationItems = [
   { href: "/patterns", label: "Patterns", icon: BarChart3 },
   { href: "/data", label: "Export / Import", icon: Database },
   { href: "/settings", label: "Settings", icon: Settings2 },
+  { href: "/login", label: "Login", icon: LogIn },
 ] as const;
 
 function AppMark() {
