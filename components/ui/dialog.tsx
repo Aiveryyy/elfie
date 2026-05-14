@@ -29,7 +29,7 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "fixed inset-0 z-50 bg-[rgba(250,244,250,0.7)] backdrop-blur-sm",
+        "fixed inset-0 z-50 bg-[rgba(29,27,24,0.28)] backdrop-blur-sm",
         className,
       )}
       {...props}
@@ -47,13 +47,13 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-[color:var(--border)] bg-white p-6 shadow-[0_35px_80px_rgba(225,211,235,0.6)] outline-none",
+          "fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-lg border border-[color:var(--border)] bg-white p-6 shadow-[0_18px_42px_rgba(50,47,40,0.16)] outline-none",
           className,
         )}
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-5 top-5 rounded-full p-2 text-slate-500 transition hover:bg-[color:var(--surface-muted)] hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-strong)]">
+        <DialogPrimitive.Close className="absolute right-5 top-5 rounded-md p-2 text-slate-500 transition hover:bg-[color:var(--surface-muted)] hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-strong)]">
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -90,7 +90,7 @@ function DialogTitle({
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
-      className={cn("font-serif text-2xl tracking-tight text-slate-900", className)}
+      className={cn("font-serif text-2xl tracking-normal text-slate-900", className)}
       {...props}
     />
   );

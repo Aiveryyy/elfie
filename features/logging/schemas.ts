@@ -68,7 +68,7 @@ export const elvyxLogSchema = z.object({
 
 export const elvyxSettingsSchema = z.object({
   id: z.literal(defaultSettings.id),
-  accentTheme: z.enum(["lavender", "soft-pink"]),
+  accentTheme: z.enum(["lavender", "matcha", "soft-pink"]),
   reducedMotion: z.boolean(),
   defaultExportFormat: z.enum([
     "json",
@@ -92,15 +92,25 @@ export const backupSchema = z.object({
 });
 
 export const aiInsightRequestSchema = z.object({
-  mode: z.enum(["reflect", "pattern", "tiny-next-move"]),
-  logs: z.array(elvyxLogSchema).min(1).max(24),
+  mode: z.enum(["reflect", "pattern", "tiny-next-move", "deep-analysis"]),
+  logs: z.array(elvyxLogSchema).min(1).max(90),
   localeDate: localDateSchema,
+  patternSummaries: z.array(z.string().trim().min(1).max(180)).max(8).optional(),
 });
 
 export const aiInsightModelSchema = z.object({
   title: z.string().trim().min(1).max(72),
-  body: z.string().trim().min(1).max(280),
-  caution: z.string().trim().max(120).nullable().optional(),
+  body: z.string().trim().min(1).max(680),
+  bullets: z.array(z.string().trim().min(1).max(180)).max(5).nullable(),
+  caution: z.string().trim().max(120).nullable(),
+});
+
+export const syncDocumentSchema = z.object({
+  syncVersion: z.literal(1),
+  updatedAt: isoDateTimeSchema,
+  deviceId: z.string().uuid(),
+  backupHash: z.string().trim().min(8).max(128),
+  backup: backupSchema,
 });
 
 export function parseEnergyValue(energyRaw: string) {

@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { SessionProvider } from "next-auth/react";
 
+import { DriveSyncProvider } from "@/components/providers/drive-sync-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useSettings } from "@/hooks/use-settings";
 
@@ -21,9 +23,11 @@ function AppearanceSync() {
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <TooltipProvider delayDuration={180}>
-      <AppearanceSync />
-      {children}
-    </TooltipProvider>
+    <SessionProvider>
+      <TooltipProvider delayDuration={180}>
+        <AppearanceSync />
+        <DriveSyncProvider>{children}</DriveSyncProvider>
+      </TooltipProvider>
+    </SessionProvider>
   );
 }

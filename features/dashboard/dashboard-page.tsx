@@ -25,6 +25,7 @@ const actionLabels: Record<InsightMode, string> = {
   reflect: "Reflect",
   pattern: "Name the pattern",
   "tiny-next-move": "Suggest a tiny next move",
+  "deep-analysis": "Deep analysis",
 };
 
 export function DashboardPage({ aiAvailable = false }: { aiAvailable?: boolean }) {
@@ -65,7 +66,8 @@ export function DashboardPage({ aiAvailable = false }: { aiAvailable?: boolean }
         body: JSON.stringify({
           mode,
           localeDate: today,
-          logs: logs.slice(0, 12),
+          logs: logs.slice(0, mode === "deep-analysis" ? 60 : 12),
+          patternSummaries: recentSummary.descriptiveSummaries.slice(0, 6),
         }),
       });
       const data = (await response.json()) as AiInsightResponse;
@@ -252,14 +254,24 @@ export function DashboardPage({ aiAvailable = false }: { aiAvailable?: boolean }
                           <Sparkles className="h-4 w-4" />
                           Calm output
                         </div>
-                        <h3 className="font-serif text-2xl tracking-tight text-slate-900">
+                        <h3 className="font-serif text-2xl tracking-normal text-slate-900">
                           {insightState.response.title}
                         </h3>
                         <p className="text-sm leading-7 text-slate-600">
                           {insightState.response.body}
                         </p>
+                        {insightState.response.bullets?.length ? (
+                          <ul className="space-y-2 text-sm leading-6 text-slate-600">
+                            {insightState.response.bullets.map((bullet) => (
+                              <li key={bullet} className="flex gap-2">
+                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-strong)]" />
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
                         {insightState.response.caution ? (
-                          <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                          <p className="text-xs uppercase tracking-normal text-slate-400">
                             {insightState.response.caution}
                           </p>
                         ) : null}

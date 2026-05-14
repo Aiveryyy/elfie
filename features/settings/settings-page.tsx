@@ -4,6 +4,7 @@ import { startTransition, useState } from "react";
 import { ShieldCheck, Sparkles, Trash2 } from "lucide-react";
 
 import { PageIntro } from "@/components/layout/page-intro";
+import { DriveSyncPanel } from "@/components/sync/drive-sync-panel";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,7 +32,14 @@ import { exportFormats, type AccentTheme, type ExportFormat } from "@/types/elvy
 
 const accentThemeLabels: Record<AccentTheme, string> = {
   lavender: "Lavender",
+  matcha: "Matcha",
   "soft-pink": "Soft pink",
+};
+
+const accentThemeDescriptions: Record<AccentTheme, string> = {
+  lavender: "A soft purple accent with a calmer bloom.",
+  matcha: "The original green matcha accent.",
+  "soft-pink": "A warmer blush accent with the same light surface.",
 };
 
 const exportFormatLabels: Record<ExportFormat, string> = {
@@ -72,7 +80,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
       <PageIntro
         eyebrow="Settings"
         title="Keep the defaults calm."
-        copy="Appearance, motion, export preference, and AI remain local preferences. There is no account layer in v1."
+        copy="Appearance, motion, export preference, AI, and optional Google Drive sync remain under your control."
       />
 
       {statusMessage ? (
@@ -88,7 +96,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
           <CardContent className="space-y-6">
             <div className="space-y-3">
               <Label>Accent theme</Label>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-3">
                 {(
                   Object.keys(accentThemeLabels) as AccentTheme[]
                 ).map((theme) => {
@@ -104,7 +112,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
                           `Accent theme updated to ${accentThemeLabels[theme]}.`,
                         )
                       }
-                      className={`rounded-[1.5rem] border px-4 py-4 text-left transition ${
+                      className={`rounded-lg border px-4 py-4 text-left transition ${
                         isActive
                           ? "border-[color:var(--accent)] bg-[color:var(--accent-soft)]"
                           : "border-[color:var(--border)] bg-white hover:border-[color:var(--accent)]"
@@ -112,9 +120,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
                     >
                       <p className="font-medium text-slate-900">{accentThemeLabels[theme]}</p>
                       <p className="mt-2 text-sm leading-6 text-slate-500">
-                        {theme === "lavender"
-                          ? "Quiet lavender ink with a softer bloom."
-                          : "A warmer blush accent with the same light surface."}
+                        {accentThemeDescriptions[theme]}
                       </p>
                     </button>
                   );
@@ -122,7 +128,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface-muted)] px-4 py-4">
+            <div className="flex items-center justify-between gap-4 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)] px-4 py-4">
               <div className="space-y-1">
                 <p className="font-medium text-slate-900">Reduced motion</p>
                 <p className="text-sm leading-6 text-slate-500">
@@ -163,7 +169,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
                       `${exportFormatLabels[format]} is now the default export.`,
                     )
                   }
-                  className={`rounded-[1.5rem] border px-4 py-4 text-left transition ${
+                  className={`rounded-lg border px-4 py-4 text-left transition ${
                     isActive
                       ? "border-[color:var(--accent)] bg-[color:var(--accent-soft)]"
                       : "border-[color:var(--border)] bg-white hover:border-[color:var(--accent)]"
@@ -185,13 +191,15 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+        <DriveSyncPanel />
+
         <Card>
           <CardHeader>
             <CardDescription>AI features</CardDescription>
             <CardTitle>Optional and server-backed</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center justify-between gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface-muted)] px-4 py-4">
+            <div className="flex items-center justify-between gap-4 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-muted)] px-4 py-4">
               <div className="space-y-1">
                 <p className="flex items-center gap-2 font-medium text-slate-900">
                   <Sparkles className="h-4 w-4 text-[color:var(--accent-strong)]" />
