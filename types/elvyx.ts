@@ -1,7 +1,7 @@
 export const SETTINGS_RECORD_ID = "app-settings";
 export const ELVYX_BACKUP_VERSION = 1;
 
-export const accentThemes = ["lavender", "soft-pink"] as const;
+export const accentThemes = ["lavender", "matcha", "soft-pink"] as const;
 export const exportFormats = [
   "json",
   "csv",
@@ -121,7 +121,7 @@ export type AiInsightResponse =
 
 export const defaultSettings: ElvyxSettings = {
   id: SETTINGS_RECORD_ID,
-  accentTheme: "lavender",
+  accentTheme: "matcha",
   reducedMotion: false,
   defaultExportFormat: "backup",
   aiEnabled: false,

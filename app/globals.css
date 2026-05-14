@@ -8,13 +8,21 @@
   --surface-soft: #efeee7;
   --border: #dedbd1;
   --border-strong: #c8c4b8;
+  --accent: #b999cb;
+  --accent-soft: #f2eafa;
+  --accent-secondary: #edf2e8;
+  --accent-strong: #8c62a3;
+  --accent-ink: #604274;
+  --shadow-lift: 0 12px 28px rgba(50, 47, 40, 0.08);
+  --shadow-soft: 0 8px 20px rgba(50, 47, 40, 0.06);
+}
+
+:root[data-accent="matcha"] {
   --accent: #a9b59c;
   --accent-soft: #edf2e8;
   --accent-secondary: #eadde4;
   --accent-strong: #6f8064;
   --accent-ink: #44533d;
-  --shadow-lift: 0 12px 28px rgba(50, 47, 40, 0.08);
-  --shadow-soft: 0 8px 20px rgba(50, 47, 40, 0.06);
 }
 
 :root[data-accent="soft-pink"] {

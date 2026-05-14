@@ -68,7 +68,7 @@ export const elvyxLogSchema = z.object({
 
 export const elvyxSettingsSchema = z.object({
   id: z.literal(defaultSettings.id),
-  accentTheme: z.enum(["lavender", "soft-pink"]),
+  accentTheme: z.enum(["lavender", "matcha", "soft-pink"]),
   reducedMotion: z.boolean(),
   defaultExportFormat: z.enum([
     "json",

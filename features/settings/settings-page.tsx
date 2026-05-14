@@ -32,7 +32,14 @@ import { exportFormats, type AccentTheme, type ExportFormat } from "@/types/elvy
 
 const accentThemeLabels: Record<AccentTheme, string> = {
   lavender: "Lavender",
+  matcha: "Matcha",
   "soft-pink": "Soft pink",
+};
+
+const accentThemeDescriptions: Record<AccentTheme, string> = {
+  lavender: "A soft purple accent with a calmer bloom.",
+  matcha: "The original green matcha accent.",
+  "soft-pink": "A warmer blush accent with the same light surface.",
 };
 
 const exportFormatLabels: Record<ExportFormat, string> = {
@@ -89,7 +96,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
           <CardContent className="space-y-6">
             <div className="space-y-3">
               <Label>Accent theme</Label>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-3">
                 {(
                   Object.keys(accentThemeLabels) as AccentTheme[]
                 ).map((theme) => {
@@ -113,9 +120,7 @@ export function SettingsPage({ aiAvailable = false }: { aiAvailable?: boolean })
                     >
                       <p className="font-medium text-slate-900">{accentThemeLabels[theme]}</p>
                       <p className="mt-2 text-sm leading-6 text-slate-500">
-                        {theme === "lavender"
-                          ? "Quiet lavender ink with a softer bloom."
-                          : "A warmer blush accent with the same light surface."}
+                        {accentThemeDescriptions[theme]}
                       </p>
                     </button>
                   );

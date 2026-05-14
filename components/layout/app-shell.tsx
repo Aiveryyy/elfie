@@ -5,13 +5,16 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   Clock3,
+  Cloud,
   Database,
   Home,
+  LogOut,
   Settings2,
   Sparkles,
   SquarePen,
 } from "lucide-react";
 
+import { useDriveSync } from "@/components/providers/drive-sync-provider";
 import { cn } from "@/lib/utils";
 
 const navigationItems = [
@@ -36,6 +39,37 @@ function AppMark() {
         <p className="text-sm text-slate-500">Reflective state logging, kept local.</p>
       </div>
     </div>
+  );
+}
+
+function AccountButton() {
+  const sync = useDriveSync();
+
+  if (sync.isSignedIn) {
+    return (
+      <button
+        type="button"
+        onClick={() => void sync.signOutFromGoogle()}
+        className="inline-flex h-11 max-w-[220px] items-center gap-2 rounded-lg border border-[color:var(--border)] bg-white px-3 text-sm font-medium text-slate-700 shadow-[0_8px_18px_rgba(50,47,40,0.07)] transition hover:border-[color:var(--accent)] hover:text-slate-900"
+        title="Sign out of Google"
+      >
+        <LogOut className="h-4 w-4 shrink-0 text-[color:var(--accent-strong)]" />
+        <span className="truncate">
+          {sync.userEmail ?? sync.userName ?? "Signed in"}
+        </span>
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={sync.signInWithGoogle}
+      className="inline-flex h-11 items-center gap-2 rounded-lg bg-[color:var(--accent-strong)] px-4 text-sm font-medium text-white shadow-[0_8px_18px_rgba(50,47,40,0.12)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(50,47,40,0.16)]"
+    >
+      <Cloud className="h-4 w-4" />
+      <span>Sign in</span>
+    </button>
   );
 }
 
@@ -77,14 +111,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="mb-5 flex items-center justify-between rounded-lg border border-[color:var(--border)] bg-white/88 px-5 py-4 shadow-[0_12px_28px_rgba(50,47,40,0.08)] backdrop-blur lg:hidden">
+        <header className="mb-5 hidden items-center justify-end lg:flex">
+          <AccountButton />
+        </header>
+
+        <header className="mb-5 flex items-center justify-between gap-3 rounded-lg border border-[color:var(--border)] bg-white/88 px-5 py-4 shadow-[0_12px_28px_rgba(50,47,40,0.08)] backdrop-blur lg:hidden">
           <AppMark />
-          <Link
-            href="/log"
-            className="rounded-lg bg-[color:var(--accent-strong)] px-4 py-2 text-sm font-medium text-white shadow-[0_8px_18px_rgba(50,47,40,0.12)]"
-          >
-            New log
-          </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            <AccountButton />
+            <Link
+              href="/log"
+              className="rounded-lg bg-[color:var(--accent-strong)] px-4 py-3 text-sm font-medium text-white shadow-[0_8px_18px_rgba(50,47,40,0.12)]"
+            >
+              New log
+            </Link>
+          </div>
         </header>
 
         <main className="flex min-w-0 flex-1 flex-col">{children}</main>
